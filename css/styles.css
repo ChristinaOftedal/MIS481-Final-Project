@@ -1,0 +1,51 @@
+/* ==========================================================
+   Brickyard Cages Redesign - the ONLY stylesheet
+   Naming: lowercase-hyphens for classes and IDs. See team doc.
+   Role 3 (Designer) owns GLOBAL, NAV, FOOTER, BUTTONS, SHARED.
+   Everyone else edits ONLY their own page section below.
+   ========================================================== */
+
+/* ---------- GLOBAL (Role 3) ---------- */
+:root {
+  --color-primary: #b33a2b;    /* placeholder - Role 3 picks final colors */
+  --color-secondary: #1f2a44;
+  --color-text: #1a1a1a;
+  --color-bg: #ffffff;
+  --font-heading: system-ui, sans-serif;
+  --font-body: system-ui, sans-serif;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); }
+img { max-width: 100%; height: auto; }
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 var(--space-md); }
+.hidden { display: none !important; }
+
+/* ---------- NAV (Role 3) ---------- */
+/* .site-header .logo .menu-toggle .site-nav .nav-link .nav-link.active */
+
+/* ---------- FOOTER (Role 3) ---------- */
+/* .site-footer */
+
+/* ---------- BUTTONS (Role 3) ---------- */
+/* .btn .btn-primary .btn-secondary */
+
+/* ---------- SHARED: sections, cards, grid, forms (Role 3) ---------- */
+/* .section .section-title .card .card-title .card-body .grid .form-group .form-error */
+
+/* ---------- PAGE: index.html (Role 1) ---------- */
+
+/* ---------- PAGE: home.html (Role 3) ---------- */
+
+/* ---------- PAGE: services.html (Role 4) + camps (Role 1) ---------- */
+
+/* ---------- PAGE: about.html + FAQ (Role 2) ---------- */
+
+/* ---------- PAGE: book.html (Role 5) ---------- */
+
+/* ---------- MEDIA QUERIES (mobile-first) ---------- */
+@media (min-width: 768px) { }
+@media (min-width: 1024px) { }
