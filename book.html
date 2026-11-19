@@ -2,40 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Allows zoom (fixes problem 3). Don't add user-scalable=no. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Book & Contact | Brickyard Cages Redesign</title>
-  <meta name="description" content="Request a batting cage, lesson or camp spot and find our location.">
+  <title>Book &amp; Contact | Brickyard Cages Redesign</title>
+  <!-- TODO (Role 5 (Content, AI &amp; quality specialist)): rewrite this description in your own words (one sentence, under 160 characters) -->
+  <meta name="description" content="Request a batting cage, lesson or camp spot online, or call Brickyard Cages at (619) 299-0282.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <!--
+    PAGE OWNER: Role 5 (Content, AI &amp; quality specialist)
+    Home of the ONLINE BOOKING FLOW - our main technology enhancement (fixes problem 1).
+    Rules: one <h1> per page, then <h2>/<h3> in order. Real alt text on every image.
+    Use the shared classes and reserved IDs from the team doc. Look at the Figma design for the layout.
+  -->
+
+  <!-- ===== SHARED HEADER (done) - identical on every page. Only Role 1 changes it,
+       on every page at once. The "active" class marks the current page. ===== -->
   <header class="site-header">
-    <div class="container">
-      <a href="home.html" class="logo">The Brickyard Cages</a>
-      <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">Menu</button>
-      <nav id="site-nav" class="site-nav">
+    <div class="nav-inner">
+      <a href="home.html" class="logo" aria-label="Brickyard Cages redesign home">
+        <b>BRICKYARD</b>
+        <small>CAGES &middot; SAN DIEGO</small>
+      </a>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
         <a href="index.html" class="nav-link">Project</a>
         <a href="home.html" class="nav-link">Home</a>
-        <a href="services.html" class="nav-link">Cages, Lessons &amp; Camps</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="book.html" class="nav-link btn btn-primary active">Book</a>
+        <a href="about.html" class="nav-link">The Dugout</a>
+        <a href="services.html" class="nav-link">Lessons &amp; Camps</a>
+        <a href="shop.html" class="nav-link">Pro Shop</a>
+        <a href="book.html" class="nav-link active" aria-current="page">Book &amp; Contact</a>
       </nav>
+      <div class="nav-actions">
+        <a href="book.html?service=cage" class="btn btn-blue">Book a Cage</a>
+        <!-- Hidden until Role 3 builds the mobile menu (styles.css NAV TODO + main.js step 2) -->
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- Role 5 (Content/QA): booking demo + contact -->
-    <!-- One <h1> per page, then <section class="section"> blocks with <h2>/<h3> in order. -->
-    <section class="section">
+    <!-- PAGE BANNER: navy .page-hero (Role 3 styles it in SHARED) -->
+    <section class="page-hero">
       <div class="container">
-        <h1>Book & Contact</h1>
+        <!-- TODO: add a small .eyebrow label above the title -->
+        <h1>Book &amp; Contact</h1>
+        <!-- TODO: one-sentence intro, e.g. request a cage, lesson or camp spot online or give us a call -->
+      </div>
+    </section>
+    <!-- ===== SECTION: Contact info + booking form ===== -->
+    <section class="section" id="booking">
+      <div class="container">
+        <!-- TODO:
+             - Left column: <h2>, big tap-to-call link <a href="tel:+16192990282">, and when to call (hours)
+             - Right column: a .card containing the form:
+             -   <form id="booking-form" novalidate>
+             -   Note at the top: "Demo only - no real booking or payment is made."
+             -   Fields, each in a .form-group with <label for=...> and an empty <span class="form-error">:
+             -     #booking-name, #booking-email, #booking-phone (optional),
+             -     #booking-service (cage, hitting, pitching, camp, team), #booking-date, #booking-time
+             -   Submit button (.btn-blue)
+             -   After the form: <div id="booking-confirmation" class="hidden"> for the success message
+             - js/booking.js makes it work
+        -->
+      </div>
+    </section>
+    <!-- ===== SECTION: Location and map ===== -->
+    <section class="section section-light" id="location">
+      <div class="container">
+        <!-- TODO:
+             - Google Map of 5355 Grant St, San Diego, CA 92110: an <iframe> with a title attribute
+             -   (Google Maps > Share > Embed a map, or src="https://www.google.com/maps?q=5355+Grant+St,+San+Diego,+CA+92110&output=embed")
+             - Address, hours, and a "Get directions" link
+        -->
       </div>
     </section>
   </main>
 
+  <!-- ===== SHARED FOOTER (done) - identical on every page. #year is filled by main.js (Role 3, step 1). ===== -->
   <footer class="site-footer">
-    <div class="container">
-      <p>5355 Grant Street, San Diego, CA 92110 &middot; <a href="tel:+16192990282">619-299-0282</a></p>
-      <p>Academic redesign concept for MIS 481. Not affiliated with The Brickyard Cages. &copy; <span id="year"></span></p>
+    <div class="container footer-grid">
+      <div>
+        <a href="home.html" class="logo"><b>BRICKYARD</b><small>CAGES &middot; SAN DIEGO</small></a>
+        <p>Built for hitters. Powered by San Diego.</p>
+      </div>
+      <div>
+        <h2>Visit the yard</h2>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=5355+Grant+St+San+Diego+CA+92110" target="_blank" rel="noopener">5355 Grant St, San Diego, CA 92110</a>
+        <a href="tel:+16192990282">(619) 299-0282</a>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <p>Mon: 12pm&ndash;7pm</p>
+        <p>Tue&ndash;Fri: 12pm&ndash;8pm</p>
+        <p>Sat&ndash;Sun: 10am&ndash;5pm</p>
+      </div>
+      <div>
+        <h2>Quick links</h2>
+        <a href="services.html">Lessons &amp; Camps</a>
+        <a href="shop.html">Pro Shop</a>
+        <a href="book.html">Book a Cage</a>
+        <a href="index.html">About this project</a>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <span>Academic redesign concept for MIS 481. Not affiliated with The Brickyard Cages.</span>
+      <span>&copy; <span id="year"></span> MIS 481 Project 2 Team</span>
     </div>
   </footer>
 

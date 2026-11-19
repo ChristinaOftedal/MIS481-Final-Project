@@ -1,51 +1,208 @@
 /* ==========================================================
    Brickyard Cages Redesign - the ONLY stylesheet
-   Naming: lowercase-hyphens for classes and IDs. See team doc.
-   Role 3 (Designer) owns GLOBAL, NAV, FOOTER, BUTTONS, SHARED.
-   Everyone else edits ONLY their own page section below.
+   Academic redesign concept for MIS 481 (not the official site)
+
+   WHAT'S ALREADY DONE: reset, design tokens (colors and fonts
+   from our Figma design), the header/nav, and the footer.
+   EVERYTHING ELSE IS YOURS TO BUILD - follow the TODOs.
+
+   Naming: lowercase-hyphens for classes and IDs (see team doc).
+   Role 3 (Designer) owns RESET, GLOBAL, NAV, BUTTONS, SHARED,
+   FOOTER and MEDIA QUERIES. Everyone else edits ONLY their own
+   PAGE section at the bottom.
    ========================================================== */
 
-/* ---------- GLOBAL (Role 3) ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap");
+
+/* ---------- RESET (done) ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, p, ul, ol, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+
+/* ---------- GLOBAL: design tokens from the Figma design (done) ---------- */
 :root {
-  --color-primary: #b33a2b;    /* placeholder - Role 3 picks final colors */
-  --color-secondary: #1f2a44;
-  --color-text: #1a1a1a;
-  --color-bg: #ffffff;
-  --font-heading: system-ui, sans-serif;
-  --font-body: system-ui, sans-serif;
+  /* Team palette: maroon, navy blue, baby blue, white, black */
+  --color-maroon: #7a1f2b;       /* main accent: primary buttons, labels, links */
+  --color-maroon-dark: #5f1620;  /* maroon hover */
+  --color-navy: #0f2340;         /* header, footer, page banners, headings */
+  --color-baby-blue: #89cff0;    /* highlight: "Book a Cage" button, active nav line */
+  --color-baby-blue-light: #eaf5fc; /* soft background for alternating sections */
+  --color-white: #ffffff;
+  --color-black: #111111;        /* body text */
+  --color-gray: #4a4a4a;         /* secondary text (a softer black) */
+  --color-line: #d6e2ea;         /* borders */
+  --font-heading: "Oswald", sans-serif;
+  --font-body: "Inter", sans-serif;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
+  --radius: 8px;
+}
+/* CONTRAST RULE: baby blue is for backgrounds, or text on navy/black.
+   Never use baby-blue text on white - it fails the 4.5:1 contrast check. */
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-black);
+  background: var(--color-white);
+  line-height: 1.5;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.1; }
+
+.container { width: min(100% - 48px, 1180px); margin-inline: auto; }
+
+/* TODO (Role 3): add a .hidden helper class that JavaScript can add/remove
+   to hide things (display: none). camps.js, faq.js and booking.js need it. */
+
+/* ---------- NAV (done - Role 3 adds the mobile menu below) ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-navy);
+  color: #fff;
+}
+.nav-inner {
+  width: min(100% - 48px, 1320px);
+  min-height: 80px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+.logo { display: inline-flex; flex-direction: column; color: #fff; }
+.logo b { font: 700 22px/1 var(--font-heading); letter-spacing: 0.8px; }
+.logo small { color: #b8c2d0; font: 600 10px/1.8 var(--font-body); letter-spacing: 1.3px; }
+.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 26px; }
+.nav-link {
+  position: relative;
+  padding: 6px 0;
+  color: #d7dde6;
+  font-size: 14px;
+  font-weight: 600;
+}
+.nav-link:hover,
+.nav-link.active { color: #fff; }
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 3px;
+  background: var(--color-baby-blue);
+}
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.menu-toggle { display: none; color: #fff; font-weight: 700; }   /* Role 3 shows it on phones */
+
+/* TODO (Role 3) - mobile menu:
+   1. In a media query for small screens (max-width: 900px), show .menu-toggle
+      and hide .site-nav.
+   2. Add a .site-nav.is-open rule that shows the links stacked in a column.
+   3. main.js toggles the is-open class when #menu-toggle is clicked. */
+
+/* ---------- BUTTONS (started - Role 3 finishes) ---------- */
+.btn {
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.btn-blue { color: var(--color-navy); background: var(--color-baby-blue); }
+.btn-blue:hover { background: var(--color-white); }
+
+/* TODO (Role 3): add the other button styles from the Figma design:
+   .btn-primary  (maroon background, white text)
+   .btn-outline  (transparent with white border, for dark backgrounds)
+   .btn-dark     (navy background)
+   Give each a :hover style. */
+
+/* ---------- SHARED (Role 3 builds - everyone uses these) ---------- */
+/* TODO (Role 3): build these shared pieces so every page looks consistent.
+   Check the Figma design for sizes and colors.
+   .section        - vertical padding for each page section (about 96px top/bottom)
+   .section-light  - light baby-blue background for alternating sections
+   .section-title  - big uppercase Oswald heading in navy
+   .eyebrow        - small uppercase maroon label above a title
+   .page-hero      - navy banner at the top of each inner page (white h1, light text)
+   .grid           - 3-column card grid that drops to 2 and then 1 column on smaller screens
+   .card           - white box with border, rounded corners, padding and a soft shadow
+   .card-title, .card-body
+   .form-group     - label stacked on top of its input, with spacing
+   .form-error     - small red text for error messages */
+
+/* ---------- FOOTER (done) ---------- */
+.site-footer { background: var(--color-navy); color: #fff; padding: 56px 0 0; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  padding-bottom: 40px;
+}
+.site-footer h2 {
+  color: var(--color-baby-blue);
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.footer-grid p,
+.footer-grid a { display: block; color: #a9b5c4; font-size: 14px; line-height: 1.7; margin-bottom: 6px; }
+.footer-grid a:hover { color: #fff; }
+.footer-grid .logo { display: inline-flex; flex-direction: column; color: #fff; margin-bottom: 12px; }
+.footer-bottom {
+  border-top: 1px solid #2b3b54;
+  padding: 18px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  color: #93a1b3;
+  font-size: 12px;
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); }
-img { max-width: 100%; height: auto; }
-.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 var(--space-md); }
-.hidden { display: none !important; }
+/* ==========================================================
+   PAGE SECTIONS - each owner styles ONLY their own page here
+   ========================================================== */
 
-/* ---------- NAV (Role 3) ---------- */
-/* .site-header .logo .menu-toggle .site-nav .nav-link .nav-link.active */
-
-/* ---------- FOOTER (Role 3) ---------- */
-/* .site-footer */
-
-/* ---------- BUTTONS (Role 3) ---------- */
-/* .btn .btn-primary .btn-secondary */
-
-/* ---------- SHARED: sections, cards, grid, forms (Role 3) ---------- */
-/* .section .section-title .card .card-title .card-body .grid .form-group .form-error */
-
-/* ---------- PAGE: index.html (Role 1) ---------- */
+/* ---------- PAGE: index.html - project overview (Role 1) ---------- */
+/* TODO (Role 1): style the before/after comparison and the problems list */
 
 /* ---------- PAGE: home.html (Role 3) ---------- */
+/* TODO (Role 3): hero (photo background with dark navy overlay), hours card,
+   service cards, maroon call-to-action band */
 
-/* ---------- PAGE: services.html (Role 4) + camps (Role 1) ---------- */
+/* ---------- PAGE: about.html - The Dugout (Role 2) ---------- */
+/* TODO (Role 2): story section (photo + text side by side), stats band,
+   coach cards, photo gallery, FAQ accordion */
 
-/* ---------- PAGE: about.html + FAQ (Role 2) ---------- */
+/* ---------- PAGE: services.html - Lessons & Camps (Role 4, camp cards Role 1) ---------- */
+/* TODO (Role 4): rate cards, lesson cards, price calculator box
+   TODO (Role 1): camp cards and the filter bar */
 
-/* ---------- PAGE: book.html (Role 5) ---------- */
+/* ---------- PAGE: shop.html - Pro Shop (Role 2) ---------- */
+/* TODO (Role 2): category buttons, product cards, cart counter. Keep it simple. */
 
-/* ---------- MEDIA QUERIES (mobile-first) ---------- */
-@media (min-width: 768px) { }
-@media (min-width: 1024px) { }
+/* ---------- PAGE: book.html - Book & Contact (Role 5) ---------- */
+/* TODO (Role 5): booking form card, error styles, confirmation message,
+   contact info, map */
+
+/* ---------- MEDIA QUERIES (Role 3; page owners add their own lines) ---------- */
+/* TODO (Role 3): tablet (max-width: 900px) and phone (max-width: 600px) rules.
+   Test every page in Chrome DevTools device mode. */
